@@ -3,40 +3,65 @@
 1, -7, 567, 89, 223-> 3
 */
 
-Console.WriteLine ("Введите числа через запятую:");
-string numbers = Console.ReadLine()!;
-string [] newNumbers = new string [numbers.Length];
-int j = 0;
-for (int i = 0; i < newNumbers.Length; i++)
-{
-  if (numbers[i] == ',')
-  {
-    j++;
-  }
-  else
-  {
-    newNumbers[j] = newNumbers[j]+$"{numbers[i]}";
-  }
-}
-j++;
-int [] resultNumbers = new int[j];
-PrintArray (resultNumbers, newNumbers);
+Console.Write("Введите числа через запятую: ");
+int[] numbers = StringToNum(Console.ReadLine()!);
+PrintArray(numbers);
 int sum = 0;
-for (int i = 0; i < j; i++)
+for (int i = 0; i < numbers.Length; i++)
 {
-  if (resultNumbers[i]>0)
-  {
-    sum++;
-  }
+    if (numbers[i] > 0)
+    {
+        sum++;
+    }
 }
-Console.WriteLine ("Количество чисел больше 0: "+sum);
-
-void PrintArray (int [] array, string [] string1)
-{
-  for (int i = 0; i < array.Length; i++)
-  {
-  array[i] = int.Parse(string1[i]);
-  Console.Write (array[i]+"  ");
-  }
 Console.WriteLine();
+Console.WriteLine($"Количество чисел больше 0 = {sum}");
+
+
+int[] StringToNum(string input)
+{
+    int count = 1;
+    for (int i = 0; i < input.Length; i++)
+    {
+        if (input[i] == ',')
+        {
+            count++;
+        }
+    }
+
+    int[] numbers = new int [count];
+    int index = 0;
+
+    for (int i = 0; i < input.Length; i++)
+    {
+        string temp = "";
+
+        while (input [i] != ',')
+        {
+        if(i != input.Length - 1)
+        {
+            temp += input [i].ToString();
+            i++;
+        }
+        else
+        {
+            temp += input [i].ToString();
+            break;
+        }
+        }
+        numbers[index] = int.Parse(temp);
+        index++;
+    }
+    return numbers;
+}
+
+
+void PrintArray(int[] array)
+{
+    Console.Write("[ ");
+    for (int i = 0; i < array.Length; i++)
+    {
+        Console.Write(array[i] + " ");
+    }
+    Console.Write("]");
 }
